@@ -1,0 +1,25 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
+
+int main(int argc, char const *argv[])
+{
+    int status = fcntl(0, F_GETFL, 0);
+    status |= O_NONBLOCK;
+    fcntl(0, F_SETFL, status);
+
+    char c;
+
+    // int ret = read(0, &c, 1);
+    
+    while(read(0, &c, 1)  == -1);
+    printf("%c\n", c);
+    // if(ret == -1)
+    // {
+    //     printf("errno = %d\n", errno);
+    //     // 资源暂时不可获得
+    //     perror("read()");
+    // }
+    return 0;
+}
